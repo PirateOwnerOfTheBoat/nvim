@@ -5,14 +5,15 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    'nvim-telescope/telescope.nvim', tag = '0.1.4',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use { 'morhetz/gruvbox', config = function() vim.cmd.colorscheme("gruvbox") end }
+  use { "ellisonleao/gruvbox.nvim" }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use('nvim-treesitter/playground')
   use('tpope/vim-fugitive')
+  use {'stevearc/dressing.nvim'}
 
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -35,5 +36,34 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},             -- Required
       {'rafamadriz/friendly-snippets'}, -- Optional
     }
+  }
+
+  use 'mfussenegger/nvim-jdtls'
+  use {
+    "adalessa/laravel.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "tpope/vim-dotenv",
+      "MunifTanjim/nui.nvim",
+    },
+    cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
+    keys = {
+      { "<leader>la", ":Laravel artisan<cr>" },
+      { "<leader>lr", ":Laravel routes<cr>" },
+      { "<leader>lm", ":Laravel related<cr>" },
+      {
+        "<leader>lt",
+        function()
+          require("laravel.tinker").send_to_tinker()
+        end,
+        mode = "v",
+        desc = "Laravel Application Routes",
+      },
+    },
+    event = { "VeryLazy" },
+    config = function()
+      require("laravel").setup()
+      require("telescope").load_extension "laravel"
+    end,
   }
 end)

@@ -9,8 +9,10 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'rust_analyzer',
-  'volar'
+  'volar',
+  'typst_lsp'
 })
+
 
 -- (Optional) Configure lua language server for neovim
 lsp.nvim_workspace()
