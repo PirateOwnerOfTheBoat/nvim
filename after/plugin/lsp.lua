@@ -25,4 +25,18 @@ lsp.setup_nvim_cmp({
   })
 })
 
+lsp.format_on_save({
+    format_opts = {
+        async = false,
+        timeout_ms = 10000,
+    },
+    servers = {
+        ["rust_analyzer"] = {"rust"}
+    }
+})
+
 lsp.setup()
+
+vim.diagnostic.config({
+    virtual_text = true
+})
